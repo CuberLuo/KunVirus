@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
-import android.util.Log;
-import android.widget.Toast;
 
 public class VoiceVolumeWrapper {
 
