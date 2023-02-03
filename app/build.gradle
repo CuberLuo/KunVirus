@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         //App包名,应用的唯一标识
-        applicationId "cn.edu.zjut.myapp"
+        applicationId "cn.edu.zjut.kunvirus"
         minSdk 30
         targetSdk 32
         versionCode 1
