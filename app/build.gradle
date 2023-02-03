@@ -12,7 +12,10 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
+        resConfigs "zh", "zh-rCN"
+        ndk{
+            abiFilters 'armeabi'/*,'x86', 'armeabi-v7a'*/
+        }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
