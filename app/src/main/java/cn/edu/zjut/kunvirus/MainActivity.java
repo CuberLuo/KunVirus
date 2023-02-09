@@ -8,48 +8,49 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.Gravity;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Timer;
+import java.util.TimerTask;
 
+public class MainActivity extends AppCompatActivity {
+    private static int screen_vary_cnt=0;
+    private final int vary_delay=500;
+    class MyTimerTask extends TimerTask {
+        public void run() {
+            screen_vary_cnt=(screen_vary_cnt+1)%2;//0101...这样变化
+            if(screen_vary_cnt==1)
+                MainActivity.this.runOnUiThread(() -> setWindowBrightness(0));
+            else
+                MainActivity.this.runOnUiThread(() -> setWindowBrightness(255));
+            new Timer().schedule(new MyTimerTask(), vary_delay);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //returnHome();
-        shakeItBaby();
+        shakeItBaby();//手机振动
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setText();
         setImage();
         setMaxVolume();//音量调节到最大
-        cn.edu.zjut.kunvirus.VoiceVolumeWrapper voiceVolumeWrapper = new cn.edu.zjut.kunvirus.VoiceVolumeWrapper(this);
+        new Timer().schedule(new MyTimerTask(),vary_delay);
+        VoiceVolumeWrapper voiceVolumeWrapper = new VoiceVolumeWrapper(this);
         voiceVolumeWrapper.registerVolumeReceiver();//监听音量变化
-        Intent musicService = new Intent(this, cn.edu.zjut.kunvirus.MusicService.class);
+        Intent musicService = new Intent(this, MusicService.class);
         this.startService(musicService);	//开启服务保证音乐在后台运行
-        Intent notifyService = new Intent(this, cn.edu.zjut.kunvirus.NotifyService.class);
+        Intent notifyService = new Intent(this, NotifyService.class);
         this.startService(notifyService);	//开启通知服务
         Toast.makeText(this,"唱跳rap篮球",Toast.LENGTH_SHORT).show();
 
     }
-    /*@Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        *//**
-         * event.getRepeatCount() 重复次数,点后退键的时候，为了防止点得过快，触发两次后退事件，故做此设置。
-         *//*
-        if ((
-                keyCode == KeyEvent.KEYCODE_BACK
-                //|| keyCode == KeyEvent.KEYCODE_HOME
-                //|| keyCode == KeyEvent.KEYCODE_MENU
-        )
-                && event.getRepeatCount() == 0) {
-            return false;
-        }
-        return super.onKeyDown(keyCode, event);
-    }*/
-
 
     public void setMaxVolume(){
         AudioManager mAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         text_view.setTextSize(30);
         text_view.setGravity(Gravity.CENTER);
     }
-    //手机振动
+
     private void shakeItBaby() {
         //5分钟振动
         int vibrate_time=5*60*1000;
@@ -83,6 +84,13 @@ public class MainActivity extends AppCompatActivity {
         } else {
             ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(vibrate_time);
         }
+    }
+
+    private void setWindowBrightness(int brightness) {
+        Window window = getWindow();
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.screenBrightness = brightness / 255.0f;
+        window.setAttributes(lp);
     }
 
 
