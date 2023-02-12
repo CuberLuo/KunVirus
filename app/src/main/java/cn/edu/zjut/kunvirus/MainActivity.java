@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setText();
         setImage();
-        setMaxVolume();//音量调节到最大
         new Timer().schedule(new MyTimerTask(),vary_delay);
         VoiceVolumeWrapper voiceVolumeWrapper = new VoiceVolumeWrapper(this);
         voiceVolumeWrapper.registerVolumeReceiver();//监听音量变化
@@ -49,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
         Intent notifyService = new Intent(this, NotifyService.class);
         this.startService(notifyService);	//开启通知服务
         Toast.makeText(this,"唱跳rap篮球",Toast.LENGTH_SHORT).show();
-
+        setMaxVolume();//音量调节到最大
     }
 
     public void setMaxVolume(){
         AudioManager mAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         int maxVolume =mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC,maxVolume,0);
+        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC,maxVolume,AudioManager.FLAG_PLAY_SOUND);
     }
 
     public void returnHome(){
