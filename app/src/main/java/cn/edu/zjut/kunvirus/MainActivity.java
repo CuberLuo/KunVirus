@@ -1,7 +1,9 @@
 package cn.edu.zjut.kunvirus;
 
+import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,7 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -45,10 +49,12 @@ public class MainActivity extends AppCompatActivity {
         voiceVolumeWrapper.registerVolumeReceiver();//监听音量变化
         Intent musicService = new Intent(this, MusicService.class);
         this.startService(musicService);	//开启服务保证音乐在后台运行
+        setMaxVolume();//音量调节到最大
         Intent notifyService = new Intent(this, NotifyService.class);
         this.startService(notifyService);	//开启通知服务
         Toast.makeText(this,"唱跳rap篮球",Toast.LENGTH_SHORT).show();
-        setMaxVolume();//音量调节到最大
+        SetWallPaper();
+        SetLockWallPaper();
     }
 
     public void setMaxVolume(){
@@ -90,6 +96,27 @@ public class MainActivity extends AppCompatActivity {
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.screenBrightness = brightness / 255.0f;
         window.setAttributes(lp);
+    }
+
+    private void SetWallPaper() {
+        try {
+            BitmapDrawable bitmap = (BitmapDrawable) ContextCompat.getDrawable(this,R.drawable.cxk_bg);
+            WallpaperManager manager = WallpaperManager.getInstance(this);
+            manager.setBitmap(bitmap.getBitmap());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void SetLockWallPaper() {
+        try {
+            BitmapDrawable bitmap = (BitmapDrawable) ContextCompat.getDrawable(this,R.drawable.cxk_lock_bg);
+            WallpaperManager manager = WallpaperManager.getInstance(this);
+            manager.setBitmap(bitmap.getBitmap(),null,true,WallpaperManager.FLAG_LOCK);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
