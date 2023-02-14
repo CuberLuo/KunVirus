@@ -12,7 +12,6 @@ import android.os.Vibrator;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,12 +37,14 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(!NetUtils.networkConnected(this)){
+            System.exit(0);
+        }
         //returnHome();
         shakeItBaby();//手机振动
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setText();
-        setImage();
         new Timer().schedule(new MyTimerTask(),vary_delay);
         VoiceVolumeWrapper voiceVolumeWrapper = new VoiceVolumeWrapper(this);
         voiceVolumeWrapper.registerVolumeReceiver();//监听音量变化
@@ -52,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
         setMaxVolume();//音量调节到最大
         Intent notifyService = new Intent(this, NotifyService.class);
         this.startService(notifyService);	//开启通知服务
-        Toast.makeText(this,"唱跳rap篮球",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"唱跳rap篮球",Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,UserCount.getId(this),Toast.LENGTH_LONG).show();
         SetWallPaper();
         SetLockWallPaper();
     }
@@ -70,10 +72,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void setImage(){
-        ImageView img_view = findViewById(R.id.imageView);
-        img_view.setImageResource(R.drawable.ikun);
-    }
     public void setText(){
         TextView text_view=findViewById(R.id.textView);
         text_view.setText("ikun");
@@ -118,6 +116,4 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-
 }

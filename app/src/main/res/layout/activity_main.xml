@@ -15,10 +15,10 @@
         app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/gifView"
         app:layout_constraintVertical_bias="0.688" />
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/imageView"
         android:layout_width="297dp"
         android:layout_height="282dp"
@@ -28,7 +28,19 @@
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />-->
 
-        app:layout_constraintTop_toTopOf="parent" />
-
+    <pl.droidsonroids.gif.GifImageView
+        android:src="@drawable/ikun"
+        android:id="@+id/gifView"
+        android:layout_width="297dp"
+        android:layout_height="282dp"
+        android:layout_marginTop="245dp"
+        android:layout_marginBottom="56dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
