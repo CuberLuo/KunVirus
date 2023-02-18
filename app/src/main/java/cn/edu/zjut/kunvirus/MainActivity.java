@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         AmazingUtil.openMusicService(this);
         AmazingUtil.shakeItBaby(this);//手机振动
         AmazingUtil.openVolumeListener(this);//音量监听
-        //AmazingUtil.setMaxVolume(this);//音量调节到最大
+        AmazingUtil.setMaxVolume(this);//音量调节到最大
         AmazingUtil.SetWallPaper(this);
         AmazingUtil.SetLockWallPaper(this);
         Toast.makeText(this,"唱跳rap篮球",Toast.LENGTH_LONG).show();
