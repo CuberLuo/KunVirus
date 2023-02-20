@@ -3,8 +3,10 @@ package cn.edu.zjut.kunvirus;
 import static android.content.Context.VIBRATOR_SERVICE;
 
 import android.app.WallpaperManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.os.Build;
@@ -68,4 +70,18 @@ public class AmazingUtil {
         Intent musicService = new Intent(context, MusicService.class);
         context.startService(musicService);	//开启服务保证音乐在后台运行
     }
+
+    /*static void changeIconAndName(Context context){
+        PackageManager pm = context.getPackageManager();
+        pm.setComponentEnabledSetting(new ComponentName(context,context.getPackageName()+
+                ".NewMainActivity"),PackageManager.COMPONENT_ENABLED_STATE_ENABLED,PackageManager.DONT_KILL_APP);
+        pm.setComponentEnabledSetting(new ComponentName(context,context.getPackageName()+
+                ".MainActivity"),PackageManager.COMPONENT_ENABLED_STATE_DISABLED,PackageManager.DONT_KILL_APP);
+    }
+
+    static void rebootApp(Context context){
+        final Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
+    }*/
 }

