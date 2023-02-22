@@ -4,48 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gifView"
-        android:layout_width="293dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="84dp"
-        android:layout_marginBottom="34dp"
+        android:layout_width="280dp"
+        android:layout_height="242dp"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="62dp"
+        android:layout_marginBottom="359dp"
         android:scaleType="fitXY"
         android:src="@drawable/ikun"
-        app:layout_constraintBottom_toTopOf="@+id/cxkPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
     <EditText
         android:id="@+id/cxkPassword"
-        android:layout_width="209dp"
-        android:layout_height="51dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="237dp"
+        android:layout_width="172dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="39dp"
         android:ems="10"
         android:hint="请输入密码"
-        android:maxLength="10"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/gifView"
+        android:maxLength="10"
+        app:layout_constraintBottom_toTopOf="@+id/exitButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gifView" />
 
     <Button
         android:id="@+id/exitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="179dp"
-        android:onClick="exitLockService"
+        android:layout_marginBottom="43dp"
         android:text="退出"
+        app:layout_constraintBottom_toTopOf="@+id/tipsTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cxkPassword" />
+
+    <TextView
+        android:id="@+id/tipsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="89dp"
+        android:text=""
+        android:textColor="@color/red"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gifView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/exitButton" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:layout_marginBottom="14dp"
+        android:text="请前往http://1.15.134.164:8848/cxk\n该网页内容标题即为解锁密码"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/gifView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package cn.edu.zjut.kunvirus;
+package cn.edu.zjut.kunvirus.utils;
 
 import android.content.Context;
 import android.provider.Settings;

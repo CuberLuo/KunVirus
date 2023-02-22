@@ -1,4 +1,4 @@
-package cn.edu.zjut.kunvirus;
+package cn.edu.zjut.kunvirus.utils;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import at.favre.lib.crypto.bcrypt.BCrypt.Hasher;

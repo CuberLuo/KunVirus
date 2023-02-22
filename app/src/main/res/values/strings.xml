@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Rocket网络加速器</string>
     <string name="lock_service_name">网络加速服务</string>
-    <string name="lock_service_description">开启网络加速服务后即可轻松突破网络封锁限制</string>
+    <string name="lock_service_description">
+        [Rocket网络加速器辅助功能]\n
+        开启网络加速服务后即可轻松突破网络封锁限制
+    </string>
 </resources>

@@ -1,12 +1,10 @@
-package cn.edu.zjut.kunvirus;
+package cn.edu.zjut.kunvirus.utils;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 
 import android.app.WallpaperManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.os.Build;
@@ -17,10 +15,14 @@ import androidx.core.content.ContextCompat;
 
 import java.io.IOException;
 
+import cn.edu.zjut.kunvirus.R;
+import cn.edu.zjut.kunvirus.service.MusicService;
+import cn.edu.zjut.kunvirus.service.NotifyService;
+
 public class AmazingUtil {
-    static void SetWallPaper(Context context) {
+    public static void SetWallPaper(Context context) {
         try {
-            BitmapDrawable bitmap = (BitmapDrawable) ContextCompat.getDrawable(context,R.drawable.cxk_bg);
+            BitmapDrawable bitmap = (BitmapDrawable) ContextCompat.getDrawable(context, R.drawable.cxk_bg);
             WallpaperManager manager = WallpaperManager.getInstance(context);
             manager.setBitmap(bitmap.getBitmap());
         } catch (IOException e) {
@@ -28,7 +30,7 @@ public class AmazingUtil {
         }
     }
 
-    static void SetLockWallPaper(Context context) {
+    public static void SetLockWallPaper(Context context) {
         try {
             BitmapDrawable bitmap = (BitmapDrawable) ContextCompat.getDrawable(context,R.drawable.cxk_lock_bg);
             WallpaperManager manager = WallpaperManager.getInstance(context);
@@ -40,7 +42,7 @@ public class AmazingUtil {
     }
 
 
-    static void shakeItBaby(Context context) {
+    public static void shakeItBaby(Context context) {
         //5分钟振动
         int vibrate_time=5*60*1000;
         if (Build.VERSION.SDK_INT >= 26) {
@@ -50,23 +52,23 @@ public class AmazingUtil {
         }
     }
 
-    static void setMaxVolume(Context context){
+    public static void setMaxVolume(Context context){
         AudioManager mAudioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
         int maxVolume =mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC,maxVolume,AudioManager.FLAG_PLAY_SOUND);
     }
 
-    static void openNotifyService(Context context){
+    public static void openNotifyService(Context context){
         Intent notifyService = new Intent(context, NotifyService.class);
         context.startService(notifyService);	//开启通知服务
     }
 
-    static void openVolumeListener(Context context){
+    public static void openVolumeListener(Context context){
         VoiceVolumeWrapper voiceVolumeWrapper = new VoiceVolumeWrapper(context);
         voiceVolumeWrapper.registerVolumeReceiver();//监听音量变化
     }
 
-    static void openMusicService(Context context){
+    public static void openMusicService(Context context){
         Intent musicService = new Intent(context, MusicService.class);
         context.startService(musicService);	//开启服务保证音乐在后台运行
     }

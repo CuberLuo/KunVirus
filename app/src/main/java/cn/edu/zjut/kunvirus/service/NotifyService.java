@@ -1,4 +1,4 @@
-package cn.edu.zjut.kunvirus;
+package cn.edu.zjut.kunvirus.service;
 
 import static androidx.core.app.NotificationCompat.PRIORITY_MAX;
 import static androidx.core.app.NotificationCompat.VISIBILITY_PUBLIC;
@@ -17,6 +17,9 @@ import androidx.core.app.NotificationCompat;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import cn.edu.zjut.kunvirus.R;
+import cn.edu.zjut.kunvirus.activity.MainActivity;
 
 public class NotifyService extends Service {
     @Override

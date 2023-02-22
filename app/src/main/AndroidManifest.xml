@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KunVirus">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.TipsActivity"
             android:exported="true"
             android:excludeFromRecents="true">
             <intent-filter>
@@ -28,11 +28,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true" />
 
-        <service android:name=".MusicService" />
-        <service android:name=".NotifyService" />
+        <service android:name=".service.MusicService" />
+        <service android:name=".service.NotifyService" />
         <service
-            android:name=".LockService"
+            android:name=".service.LockService"
             android:enabled="true"
             android:exported="true"
             android:label="@string/lock_service_name"

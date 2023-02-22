@@ -10,8 +10,8 @@ android {
         applicationId "cn.edu.zjut.kunvirus"
         minSdk 30
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "3.0.0"
         resConfigs "zh", "zh-rCN"
         ndk{
             abiFilters 'armeabi', 'x86', 'armeabi-v7a'
@@ -46,4 +46,11 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation 'at.favre.lib:bcrypt:0.10.2'
+}
+
+android.applicationVariants.all {
+    variant ->
+        variant.outputs.all {
+            outputFileName = "web_accelerator_v${variant.versionName}.apk"
+        }
 }
